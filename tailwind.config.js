@@ -20,6 +20,12 @@ module.exports = {
       fontFamily: {
         primary: ['Inter', ...fontFamily.sans],
       },
+      fontSize: {
+        "10xl": "128px"
+      },
+      gap: {
+        "4": "2rem"
+      },
       colors: {
         primary: {
           400: '#00E0F3',
