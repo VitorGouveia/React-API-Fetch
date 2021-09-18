@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "../styles/global/global.css";
+
+@layer base {
+  .📢 {
+    @apply 
+    flex items-center justify-center w-screen h-screen bg-gray-900 ;
+  }
+
+  .🚧 {
+    @apply bg-gray-800 border-2 border-gray-700 rounded-lg shadow-4xl w-90 h-90;
+  }
+
+  .📝 {
+    @apply grid h-full grid-cols-3 grid-rows-3 gap-4 p-20 place-items-center;
+  }
+
+  .📝 .🔢 {
+    @apply p-4 bg-gray-700 border-none rounded-sm outline-none text-gray-50;
+  }
+
+  .🔢[data-position=1] {
+    @apply col-span-1;
+  }
+
+  .🔢[data-position=3] {
+    @apply col-span-3;
+  }
+
+  .📝 .🔘 {
+    grid-column: 2;
+    @apply p-4;
+  }
+  
+  .📟[data-transparent] {
+    opacity: 0;
+  }
+  
+  .📟 {
+    animation: fadeIn 500ms forwards;
+    @apply col-start-1 col-end-auto;
+  }
+}
