@@ -39,6 +39,7 @@ export const getServerSideProps = (async (ctx) => {
 const Conta = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [referral, setReferral] = useState("");
   const supabase = useSupabaseClient();
 
   const router = useRouter();
@@ -51,14 +52,28 @@ const Conta = () => {
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { error, data } = await supabase.auth.signUp({
         email,
         password,
       });
 
-      if (error) {
+      if (error || !data.user) {
         return alert("Ocorreu um erro");
       }
+
+      const body: Record<string, string> = {
+        userId: data.user.id,
+      };
+
+      if (referral.length > 0) body.affiliateReferral = referral;
+
+      await fetch("/api/users", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     } catch (error) {
       return alert("Ocorreu um erro");
     }
@@ -78,6 +93,7 @@ const Conta = () => {
           type="email"
           placeholder="Insira seu e-mail"
           value={email}
+          required
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
@@ -86,7 +102,18 @@ const Conta = () => {
           value={password}
           minLength={6}
           maxLength={100}
+          required
           onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <p style={{ fontWeight: 700 }}>Ganhe 100 moedas bônus!</p>
+        <input
+          type="text"
+          placeholder="Código promocional (Opcional)"
+          value={referral}
+          minLength={6}
+          maxLength={6}
+          onChange={(e) => setReferral(e.target.value)}
         />
 
         <button type="submit">Fazer cadastro</button>

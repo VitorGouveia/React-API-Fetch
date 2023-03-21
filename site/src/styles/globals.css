@@ -30,7 +30,7 @@ input {
   padding: 20px;
   border-radius: 12px;
   background: #fff;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 input::placeholder {

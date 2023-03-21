@@ -9,9 +9,58 @@ import {
   View,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useEffect, useState } from "react";
+import { supabase } from "../supabase";
+import type { NavigationProp, ParamListBase } from "@react-navigation/native";
 // import { useEffect, useState } from "react";
 
-export const Cadastro = () => {
+export const Cadastro = ({
+  navigation,
+}: {
+  navigation: NavigationProp<ParamListBase>;
+}) => {
+  useEffect(() => {
+    // check session and redirect
+    const main = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (data.session) {
+        return navigation.navigate("Home");
+      }
+    };
+    main();
+  }, []);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const login = async () => {
+    if (!email || !password) {
+      return setError("Preencha os campos por favor!");
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        console.log(error);
+        if (error.message === "Invalid login credentials") {
+          return setError("Login inválido!");
+        }
+
+        return setError("Ocorreu um erro, tente novamente mais tarde");
+      }
+      // approve
+      navigation.navigate("Home");
+    } catch (error) {
+      setError("Ocorreu um erro, tente novamente mais tarde");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -41,18 +90,29 @@ export const Cadastro = () => {
         </Text>
 
         <View style={{ width: "70%", gap: 12 }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold", color: "#ff0000" }}>
+            {error}
+          </Text>
+
           <TextInput
             placeholder="E-mail"
             keyboardType="default"
+            textContentType="emailAddress"
             placeholderTextColor="#1C1C1C"
             style={styles.input}
+            value={email}
+            onChangeText={setEmail}
           />
 
           <TextInput
             placeholder="Senha"
             keyboardType="default"
+            secureTextEntry={true}
+            textContentType="password"
             placeholderTextColor="#1C1C1C"
             style={styles.input}
+            value={password}
+            onChangeText={setPassword}
           />
 
           <LinearGradient
@@ -67,7 +127,7 @@ export const Cadastro = () => {
               borderRadius: 8,
             }}
           >
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity onPress={login} style={styles.buttonContainer}>
               <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
           </LinearGradient>
