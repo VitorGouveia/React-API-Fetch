@@ -3,8 +3,12 @@ import {
   FlatList,
   StyleSheet,
   View,
+  Image,
   StatusBar,
   Text,
+  Web,
+  Linking,
+  Touchable,
 } from "react-native";
 import { useEffect, useRef, useState } from "react";
 
@@ -12,6 +16,7 @@ import { supabase } from "../supabase";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PostSingle } from "../components/post";
 import { Navbar } from "../navbar";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const useMaterialNavBarHeight = () => {
   const { bottom, top } = useSafeAreaInsets();
@@ -127,7 +132,51 @@ export const Play = ({ navigation }) => {
   return (
     <>
       <View style={styles.container}>
-        {userId ? (
+        <Text style={{ color: "#fff", fontSize: 20 }}>
+          Se não possui o Tiktok, por favor baixe o tiktok
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#000",
+            paddingHorizontal: 12,
+            paddingVertical: 4,
+            borderRadius: 4,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 4,
+          }}
+          onPress={async () => {
+            const userProgress = await supabase
+              .from("UserProgress")
+              .select("*")
+              .eq("userId", userId)
+              .single();
+
+            const progress = userProgress.data;
+
+            await supabase
+              .from("UserProgress")
+              .update({
+                coins: (progress?.coins ?? 0) + 5,
+              })
+              .eq("userId", userId);
+
+            Linking.openURL("tiktok://");
+          }}
+        >
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 50 }}>
+            TikTok
+          </Text>
+          <Image
+            style={{
+              width: 40,
+              height: 40,
+              resizeMode: "cover",
+            }}
+            source={require("../assets/tiktok-icon.png")}
+          />
+        </TouchableOpacity>
+        {/* {userId ? (
           <FlatList
             data={posts}
             // windowSize={4}
@@ -145,7 +194,7 @@ export const Play = ({ navigation }) => {
           />
         ) : (
           <Text>Carregando...</Text>
-        )}
+        )} */}
       </View>
 
       <Navbar navigation={navigation} />
@@ -159,6 +208,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#121212",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
   },
   input: {
     width: "100%",

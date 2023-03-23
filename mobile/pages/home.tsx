@@ -1,10 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { Alert, Linking } from "react-native";
 import {
   Image,
+  Linking,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -149,7 +148,10 @@ export const Home = ({
             borderRadius: 8,
           }}
         >
-          <TouchableOpacity style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Play")}
+            style={styles.buttonContainer}
+          >
             <Text style={styles.buttonText}>ASSISTIR VÍDEOS</Text>
           </TouchableOpacity>
         </LinearGradient>
@@ -300,6 +302,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
+    color: "#fff",
   },
   buttonText: {
     color: "#fff",

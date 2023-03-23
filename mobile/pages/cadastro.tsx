@@ -135,9 +135,7 @@ export const Cadastro = ({
 
         <TouchableOpacity
           onPress={async () => {
-            await Linking.openURL(
-              "https://pepper.com.br/checkout/index.html?p=21168&o=16335"
-            );
+            await Linking.openURL("https://go.perfectpay.com.br/PPU38CLQ2PN");
           }}
           style={{
             height: 50,
