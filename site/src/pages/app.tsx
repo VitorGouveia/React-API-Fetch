@@ -17,7 +17,7 @@ const Conta = () => {
 
   return (
     <main className={`${reading.className}`} style={{ paddingInline: "30px" }}>
-      <Image width={60} height={68} src="/logo.png" alt="Logo da TikCash" />
+      <Image width={60} height={88} src="/logo.png" alt="Logo da TikCash" />
 
       <h1>Copie e guarde esse código de indicação para ganhar 100 moedas!</h1>
 

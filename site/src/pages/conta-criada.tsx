@@ -12,7 +12,7 @@ const reading = Poppins({
 const Conta = () => {
   return (
     <main className={`${reading.className}`}>
-      <Image width={60} height={68} src="/logo.png" alt="Logo da TikCash" />
+      <Image width={60} height={88} src="/logo.png" alt="Logo da TikCash" />
 
       <h1>Conta criada com sucesso! Faça login no aplicativo!</h1>
     </main>

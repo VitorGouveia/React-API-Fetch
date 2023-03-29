@@ -84,7 +84,7 @@ const Conta = () => {
 
   return (
     <main className={`${reading.className}`}>
-      <Image width={60} height={68} src="/logo.png" alt="Logo da TikCash" />
+      <Image width={60} height={88} src="/logo.png" alt="Logo da TikCash" />
 
       <h1>Faça seu cadastro</h1>
 
