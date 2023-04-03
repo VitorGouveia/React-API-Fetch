@@ -125,8 +125,8 @@ export const Home = ({
       <View style={styles.container}>
         <Image
           style={{
-            width: 100,
-            height: 100,
+            width: 60,
+            height: 88,
             resizeMode: "cover",
           }}
           source={require("../assets/tiktok-icon.png")}

@@ -169,7 +169,7 @@ export const Play = ({ navigation }) => {
           </Text>
           <Image
             style={{
-              width: 40,
+              width: 27,
               height: 40,
               resizeMode: "cover",
             }}
