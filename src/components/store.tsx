@@ -142,7 +142,9 @@ export const Store = (props: {
 
   const promptInstall = async () => {
     if (deferredPrompt !== null) {
+      // @ts-ignore
       deferredPrompt.prompt()
+      // @ts-ignore
       const { outcome } = await deferredPrompt.userChoice
       if (outcome === "accepted") {
         setDeferredPrompt(null)
