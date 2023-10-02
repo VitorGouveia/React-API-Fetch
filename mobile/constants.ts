@@ -1,3 +1,0 @@
-export const SUPABASE_URL = "https://bzgkmajgvbaiodaenspk.supabase.co";
-export const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6Z2ttYWpndmJhaW9kYWVuc3BrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk0MTA3OTQsImV4cCI6MTk5NDk4Njc5NH0.7fIKu4YlEsMIOJSFkdRPnA20SoYYbZHOt9-xcLj9NBI";
