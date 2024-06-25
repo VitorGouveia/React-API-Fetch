@@ -3,22 +3,8 @@ import { cities, states } from "@/brazilian-states-cities"
 import { Checkbox } from "@/lib/Checkbox"
 import { useModal } from "@/lib/Modal"
 import { Select } from "@/lib/Select"
+import { getPets } from "@/queries/get-pets"
 import { use, useActionState, useEffect, useState } from "react"
-
-type Pet = {
-  name: string
-  properties: Array<string>
-}
-
-const pets: Array<Pet> = [
-  { name: "Hulk", properties: ["Masculino", "2 anos", "Cachorro"] },
-  { name: "Hulk", properties: ["Masculino", "2 anos", "Cachorro"] },
-  { name: "Hulk", properties: ["Masculino", "2 anos", "Cachorro"] },
-  { name: "Hulk", properties: ["Masculino", "2 anos", "Cachorro"] },
-  { name: "Hulk", properties: ["Masculino", "2 anos", "Cachorro"] },
-  { name: "Hulk", properties: ["Masculino", "2 anos", "Cachorro"] },
-  { name: "Hulk", properties: ["Masculino", "2 anos", "Cachorro"] },
-]
 
 async function getStates<T>() {
   return (await fetch("https://brasilapi.com.br/api/ibge/uf/v1")).json() as T
@@ -101,10 +87,11 @@ async function getCities<T>(id: string) {
 
 export default function Home() {
   const IdealPetModal = useModal()
+  const pets = getPets()
 
   return (
     <main className="flex gap-8 p-20">
-      <aside className="border-theme-primary-light flex flex-col gap-8 border-r pr-8">
+      <aside className="flex flex-col gap-8 border-r border-theme-primary-light pr-8">
         <section className="flex flex-col gap-2">
           <h3>Localização</h3>
 
@@ -157,7 +144,7 @@ export default function Home() {
       <div className="flex w-full flex-col gap-8">
         <button
           onClick={() => IdealPetModal.open()}
-          className="bg-theme-accent-base hover:bg-theme-accent-light flex w-max items-center gap-2 transition"
+          className="flex w-max items-center gap-2 bg-theme-accent-base transition hover:bg-theme-accent-light"
         >
           Encontrar Pet Ideal
           <svg
@@ -170,37 +157,45 @@ export default function Home() {
           </svg>
         </button>
 
-        <IdealPetModal.Modal
+        <IdealPetModal.modal
           title="Encontre o Pet Ideal"
           description="Responda algumas perguntas rápidas e encontre o pet ideal baseado nas suas respostas."
+          onClose={() => {}}
         >
           <div className="flex items-center gap-2">
-            <button className="text-theme-title bg-transparent">Fechar</button>
+            <button
+              className="bg-transparent text-theme-title"
+              onClick={() => IdealPetModal.close()}
+            >
+              Fechar
+            </button>
             <button className="bg-theme-accent-base">Beleza! Bora Lá</button>
           </div>
-        </IdealPetModal.Modal>
+        </IdealPetModal.modal>
 
         <ul className="grid w-full grid-cols-4 gap-6">
           {pets.map((pet) => (
-            <li
-              key={pet.name}
-              className="border-theme-primary-light flex w-full flex-col overflow-hidden rounded-md border"
-            >
-              <div className="h-[300px] w-full bg-gray-500"></div>
-              <div className="flex flex-col gap-1 p-3">
-                <h3>{pet.name}</h3>
+            <li key={pet.id}>
+              <a
+                href={`/pets/${pet.id}`}
+                className="flex w-full flex-col overflow-hidden rounded-md border border-theme-primary-light"
+              >
+                <div className="h-[300px] w-full bg-gray-500"></div>
+                <div className="flex flex-col gap-1 p-3">
+                  <h3>{pet.name}</h3>
 
-                <ul className="flex items-center gap-1">
-                  {pet.properties.map((prop) => (
-                    <li
-                      key={prop}
-                      className="border-theme-primary-light rounded-full border px-3 py-1"
-                    >
-                      {prop}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  <ul className="flex items-center gap-1">
+                    {pet.properties.map((prop) => (
+                      <li
+                        key={prop}
+                        className="rounded-full border border-theme-primary-light px-3 py-1"
+                      >
+                        {prop}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </a>
             </li>
           ))}
         </ul>
