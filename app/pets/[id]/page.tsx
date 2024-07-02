@@ -1,4 +1,4 @@
-import { getPet } from "@/queries/get-pets"
+import { getPet } from "@/server/get-pets"
 import { IdealPetForm } from "./ideal-pet-modal"
 
 export default async function Page({ params }: { params: { id: string } }) {

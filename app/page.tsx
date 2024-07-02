@@ -1,29 +1,27 @@
-<<<<<<< HEAD:app/_page.tsx
-import { AtSymbolIcon } from "@heroicons/react/24/solid"
+// import { AtSymbolIcon } from "@heroicons/react/24/solid"
 
-import { Input, Label } from "./_input"
-import { Button } from "@/_components/ui/button"
+// import { Input, Label } from "./_input"
+// import { Button } from "@/_components/ui/button"
 
-const UsernameInput = () => {
-  return (
-    <Input name="email" placeholder="you@evonofy.com">
-      <Label>E-mail</Label>
+// const UsernameInput = () => {
+//   return (
+//     <Input name="email" placeholder="you@evonofy.com">
+//       <Label>E-mail</Label>
 
-      <AtSymbolIcon className="size-4" />
-    </Input>
-  )
-=======
+//       <AtSymbolIcon className="size-4" />
+//     </Input>
+//   )
+
 "use client"
 import { cities, states } from "@/brazilian-states-cities"
-
 import { Checkbox } from "@/lib/Checkbox"
 import { useModal } from "@/lib/Modal"
 import { Select } from "@/lib/Select"
-import { getPets } from "@/server/get-pets"
+import { getPets } from "@/queries/get-pets"
+import { use, useActionState, useEffect, useState } from "react"
 
 async function getStates<T>() {
   return (await fetch("https://brasilapi.com.br/api/ibge/uf/v1")).json() as T
->>>>>>> master:app/page.tsx
 }
 
 async function getCities<T>(id: string) {
@@ -102,19 +100,11 @@ async function getCities<T>(id: string) {
 // }
 
 export default function Home() {
-  return (
-    <main className="flex gap-8 p-20">
-      <PetSearch />
-    </main>
-  )
-}
-
-function PetSearch() {
   const IdealPetModal = useModal()
   const pets = getPets()
 
   return (
-    <section className="flex gap-8">
+    <main className="flex gap-8 p-20">
       <aside className="flex flex-col gap-8 border-r border-theme-primary-light pr-8">
         <section className="flex flex-col gap-2">
           <h3>Localização</h3>
@@ -197,7 +187,7 @@ function PetSearch() {
           </div>
         </IdealPetModal.modal>
 
-        <ul className="grid w-full grid-cols-2 gap-6">
+        <ul className="grid w-full grid-cols-4 gap-6">
           {pets.map((pet) => (
             <li key={pet.id}>
               <a
@@ -224,6 +214,6 @@ function PetSearch() {
           ))}
         </ul>
       </div>
-    </section>
+    </main>
   )
 }
