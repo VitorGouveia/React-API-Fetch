@@ -2,12 +2,12 @@
 
 import { useFormState } from "react-dom"
 
-import { TextField } from "@/components/TextField"
-import { SubmitButton } from "@/components/submit-button"
-import { Title } from "@/components/title"
+import { TextField } from "@/_components/TextField"
+import { SubmitButton } from "@/_components/submit-button"
+import { Title } from "@/_components/title"
 
 import { registerSeller } from "./register-seller.action"
-import { PasswordField } from "@/components/PasswordField"
+import { PasswordField } from "@/_components/PasswordField"
 
 const initialState: { formErrors: Record<string, string | null> } = {
   formErrors: {},

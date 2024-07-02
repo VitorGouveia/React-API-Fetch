@@ -1,10 +1,10 @@
 import { ReactNode, useId } from "react"
 import { LockOpenIcon } from "@heroicons/react/20/solid"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Title } from "@/components/title"
+import { Button } from "@/_components/ui/button"
+import { Input } from "@/_components/ui/input"
+import { Label } from "@/_components/ui/label"
+import { Title } from "@/_components/title"
 
 const SubmitButton = () => {
   return <Button>Login</Button>

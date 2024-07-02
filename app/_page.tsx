@@ -1,7 +1,7 @@
 import { AtSymbolIcon } from "@heroicons/react/24/solid"
 
-import { Input, Label } from "./input"
-import { Button } from "@/components/ui/button"
+import { Input, Label } from "./_input"
+import { Button } from "@/_components/ui/button"
 
 const UsernameInput = () => {
   return (
