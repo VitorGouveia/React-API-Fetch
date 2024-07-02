@@ -1,3 +1,4 @@
+<<<<<<< HEAD:app/_page.tsx
 import { AtSymbolIcon } from "@heroicons/react/24/solid"
 
 import { Input, Label } from "./_input"
@@ -11,415 +12,210 @@ const UsernameInput = () => {
       <AtSymbolIcon className="size-4" />
     </Input>
   )
+=======
+"use client"
+import { cities, states } from "@/brazilian-states-cities"
+import { Checkbox } from "@/lib/Checkbox"
+import { useModal } from "@/lib/Modal"
+import { Select } from "@/lib/Select"
+import { getPets } from "@/queries/get-pets"
+import { use, useActionState, useEffect, useState } from "react"
+
+async function getStates<T>() {
+  return (await fetch("https://brasilapi.com.br/api/ibge/uf/v1")).json() as T
+>>>>>>> master:app/page.tsx
 }
 
-export default function Page() {
+async function getCities<T>(id: string) {
   return (
-    <form className="m-auto w-[450px] py-12">
-      {/* <section className="flex w-full">
-        <UsernameInput />
-      </section> */}
+    await fetch(`https://brasilapi.com.br/api/ibge/municipios/v1/${id}`)
+  ).json() as T
+}
 
-      {/* <div className="space-y-12">
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Profile
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            This information will be displayed publicly so be careful what you
-            share.
-          </p>
+// const Sidebar = () => {
+//   const states = await getStates()
+//   const [state, setState] = useState("")
+//   const [city, setCity] = useState("")
 
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4"></div>
+//   const filteredCities = cities.find((city) => city.sigla === state)?.cidades
 
-            <div className="col-span-full">
-              <label
-                htmlFor="about"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                About
-              </label>
-              <div className="mt-2">
-                <textarea
-                  id="about"
-                  name="about"
-                  rows={3}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  defaultValue={""}
-                />
-              </div>
-              <p className="mt-3 text-sm leading-6 text-gray-600">
-                Write a few sentences about yourself.
-              </p>
-            </div>
+//   return (
+//     <aside className="flex flex-col gap-8 pr-8">
+//       <section className="flex flex-col gap-2">
+//         <h3>Localização</h3>
 
-            <div className="col-span-full">
-              <label
-                htmlFor="photo"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Photo
-              </label>
-              <div className="mt-2 flex items-center gap-x-3">
-                <UserCircleIcon
-                  className="h-12 w-12 text-gray-300"
-                  aria-hidden="true"
-                />
-                <button
-                  type="button"
-                  className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                >
-                  Change
-                </button>
-              </div>
-            </div>
+//         <div className="flex items-center gap-2">
+//           <Select options={states} selected={state} onSelect={setState} />
+//           <Select
+//             selected={city}
+//             onSelect={setCity}
+//             options={filteredCities?.map((a) => ({ value: a, name: a })) ?? []}
+//           />
+//         </div>
+//       </section>
+//     </aside>
+//   )
+// }
 
-            <div className="col-span-full">
-              <label
-                htmlFor="cover-photo"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Cover photo
-              </label>
-              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                <div className="text-center">
-                  <PhotoIcon
-                    className="mx-auto h-12 w-12 text-gray-300"
-                    aria-hidden="true"
-                  />
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      <span>Upload a file</span>
-                      <input
-                        id="file-upload"
-                        name="file-upload"
-                        type="file"
-                        className="sr-only"
-                      />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                  </div>
-                  <p className="text-xs leading-5 text-gray-600">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
-                </div>
-              </div>
-            </div>
+// export default function Home() {
+//   const [states, setStates] = useState<Array<{ sigla: string }>>([])
+//   const [cities, setCities] = useState<Array<{ nome: string }>>([])
+
+//   useEffect(() => {
+//     async function main() {
+//       console.log("running")
+//       setStates(await getStates<Array<{ sigla: string }>>())
+//     }
+
+//     main()
+//   }, [])
+
+//   return (
+//     <main className="flex-col gap-8 p-20">
+//       {/* <Sidebar /> */}
+//       <section className="flex gap-2">
+//         {states.map((state) => (
+//           <button
+//             key={state.sigla}
+//             onClick={async () => {
+//               const cities = await getCities<Array<{ nome: string }>>(
+//                 state.sigla
+//               )
+//               console.log(`Cities for ${state.sigla}`, cities)
+//               setCities(cities)
+//             }}
+//           >
+//             {state.sigla}
+//           </button>
+//         ))}
+//       </section>
+
+//       <p>cities</p>
+
+//       <section className="flex gap-2">
+//         {cities.map((city) => (
+//           <p key={city.nome}>{city.nome}</p>
+//         ))}
+//       </section>
+//     </main>
+//   )
+// }
+
+export default function Home() {
+  const IdealPetModal = useModal()
+  const pets = getPets()
+
+  return (
+    <main className="flex gap-8 p-20">
+      <aside className="flex flex-col gap-8 border-r border-theme-primary-light pr-8">
+        <section className="flex flex-col gap-2">
+          <h3>Localização</h3>
+
+          <div className="flex w-full gap-2">
+            <Select
+              selected={"PE"}
+              onSelect={() => {}}
+              options={[{ name: "PE", value: "PE" }]}
+            />
+            <Select
+              selected={"Recife"}
+              onSelect={() => {}}
+              options={[{ name: "Recife", value: "Recife" }]}
+            />
           </div>
-        </div>
+        </section>
 
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Personal Information
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            Use a permanent address where you can receive mail.
-          </p>
+        <section className="flex flex-col gap-2">
+          <h3>Espécie</h3>
 
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="first-name"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                First name
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="first-name"
-                  id="first-name"
-                  autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+          <Checkbox>Cachorro</Checkbox>
+          <Checkbox>Peixe</Checkbox>
+          <Checkbox>Gato</Checkbox>
+        </section>
 
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="last-name"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Last name
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="last-name"
-                  id="last-name"
-                  autoComplete="family-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+        <section className="flex flex-col gap-2">
+          <h3>Porte</h3>
 
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+          <Checkbox>Pequeno</Checkbox>
+          <Checkbox>Grande</Checkbox>
+        </section>
 
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="country"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Country
-              </label>
-              <div className="mt-2">
-                <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
-              </div>
-            </div>
+        <section className="flex flex-col gap-2">
+          <h3>Sexo</h3>
 
-            <div className="col-span-full">
-              <label
-                htmlFor="street-address"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Street address
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="street-address"
-                  id="street-address"
-                  autoComplete="street-address"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+          <Checkbox>Masculino</Checkbox>
+          <Checkbox>Feminino</Checkbox>
+        </section>
 
-            <div className="sm:col-span-2 sm:col-start-1">
-              <label
-                htmlFor="city"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                City
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
-                  autoComplete="address-level2"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+        <section className="flex flex-col gap-2">
+          <h3>Independência</h3>
 
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="region"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                State / Province
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="region"
-                  id="region"
-                  autoComplete="address-level1"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+          <Checkbox>Muita</Checkbox>
+          <Checkbox>Pouca</Checkbox>
+        </section>
 
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="postal-code"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                ZIP / Postal code
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="postal-code"
-                  id="postal-code"
-                  autoComplete="postal-code"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+        <button className="bg-theme-secondary-base">Pesquisar</button>
+      </aside>
+
+      <div className="flex w-full flex-col gap-8">
+        <button
+          onClick={() => IdealPetModal.open()}
+          className="flex w-max items-center gap-2 bg-theme-accent-base transition hover:bg-theme-accent-light"
+        >
+          Encontrar Pet Ideal
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="h-5 w-5"
+          >
+            <path d="M15.98 1.804a1 1 0 0 0-1.96 0l-.24 1.192a1 1 0 0 1-.784.785l-1.192.238a1 1 0 0 0 0 1.962l1.192.238a1 1 0 0 1 .785.785l.238 1.192a1 1 0 0 0 1.962 0l.238-1.192a1 1 0 0 1 .785-.785l1.192-.238a1 1 0 0 0 0-1.962l-1.192-.238a1 1 0 0 1-.785-.785l-.238-1.192ZM6.949 5.684a1 1 0 0 0-1.898 0l-.683 2.051a1 1 0 0 1-.633.633l-2.051.683a1 1 0 0 0 0 1.898l2.051.684a1 1 0 0 1 .633.632l.683 2.051a1 1 0 0 0 1.898 0l.683-2.051a1 1 0 0 1 .633-.633l2.051-.683a1 1 0 0 0 0-1.898l-2.051-.683a1 1 0 0 1-.633-.633L6.95 5.684ZM13.949 13.684a1 1 0 0 0-1.898 0l-.184.551a1 1 0 0 1-.632.633l-.551.183a1 1 0 0 0 0 1.898l.551.183a1 1 0 0 1 .633.633l.183.551a1 1 0 0 0 1.898 0l.184-.551a1 1 0 0 1 .632-.633l.551-.183a1 1 0 0 0 0-1.898l-.551-.184a1 1 0 0 1-.633-.632l-.183-.551Z" />
+          </svg>
+        </button>
+
+        <IdealPetModal.modal
+          title="Encontre o Pet Ideal"
+          description="Responda algumas perguntas rápidas e encontre o pet ideal baseado nas suas respostas."
+          onClose={() => {}}
+        >
+          <div className="flex items-center gap-2">
+            <button
+              className="bg-transparent text-theme-title"
+              onClick={() => IdealPetModal.close()}
+            >
+              Fechar
+            </button>
+            <button className="bg-theme-accent-base">Beleza! Bora Lá</button>
           </div>
-        </div>
+        </IdealPetModal.modal>
 
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Notifications
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            Well always let you know about important changes, but you pick what
-            else you want to hear about.
-          </p>
+        <ul className="grid w-full grid-cols-4 gap-6">
+          {pets.map((pet) => (
+            <li key={pet.id}>
+              <a
+                href={`/pets/${pet.id}`}
+                className="flex w-full flex-col overflow-hidden rounded-md border border-theme-primary-light"
+              >
+                <div className="h-[300px] w-full bg-gray-500"></div>
+                <div className="flex flex-col gap-1 p-3">
+                  <h3>{pet.name}</h3>
 
-          <div className="mt-10 space-y-10">
-            <fieldset>
-              <legend className="text-sm font-semibold leading-6 text-gray-900">
-                By Email
-              </legend>
-              <div className="mt-6 space-y-6">
-                <div className="relative flex gap-x-3">
-                  <div className="flex h-6 items-center">
-                    <input
-                      id="comments"
-                      name="comments"
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                    />
-                  </div>
-                  <div className="text-sm leading-6">
-                    <label
-                      htmlFor="comments"
-                      className="font-medium text-gray-900"
-                    >
-                      Comments
-                    </label>
-                    <p className="text-gray-500">
-                      Get notified when someones posts a comment on a posting.
-                    </p>
-                  </div>
+                  <ul className="flex items-center gap-1">
+                    {pet.properties.map((prop) => (
+                      <li
+                        key={prop}
+                        className="rounded-full border border-theme-primary-light px-3 py-1"
+                      >
+                        {prop}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="relative flex gap-x-3">
-                  <div className="flex h-6 items-center">
-                    <input
-                      id="candidates"
-                      name="candidates"
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                    />
-                  </div>
-                  <div className="text-sm leading-6">
-                    <label
-                      htmlFor="candidates"
-                      className="font-medium text-gray-900"
-                    >
-                      Candidates
-                    </label>
-                    <p className="text-gray-500">
-                      Get notified when a candidate applies for a job.
-                    </p>
-                  </div>
-                </div>
-                <div className="relative flex gap-x-3">
-                  <div className="flex h-6 items-center">
-                    <input
-                      id="offers"
-                      name="offers"
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                    />
-                  </div>
-                  <div className="text-sm leading-6">
-                    <label
-                      htmlFor="offers"
-                      className="font-medium text-gray-900"
-                    >
-                      Offers
-                    </label>
-                    <p className="text-gray-500">
-                      Get notified when a candidate accepts or rejects an offer.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend className="text-sm font-semibold leading-6 text-gray-900">
-                Push Notifications
-              </legend>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                These are delivered via SMS to your mobile phone.
-              </p>
-              <div className="mt-6 space-y-6">
-                <div className="flex items-center gap-x-3">
-                  <input
-                    id="push-everything"
-                    name="push-notifications"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                  />
-                  <label
-                    htmlFor="push-everything"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Everything
-                  </label>
-                </div>
-                <div className="flex items-center gap-x-3">
-                  <input
-                    id="push-email"
-                    name="push-notifications"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                  />
-                  <label
-                    htmlFor="push-email"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Same as email
-                  </label>
-                </div>
-                <div className="flex items-center gap-x-3">
-                  <input
-                    id="push-nothing"
-                    name="push-notifications"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                  />
-                  <label
-                    htmlFor="push-nothing"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    No push notifications
-                  </label>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-        </div>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <div className="mt-6 flex items-center justify-end gap-x-6">
-        <button
-          type="button"
-          className="text-sm font-semibold leading-6 text-gray-900"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Save
-        </button>
-      </div> */}
-    </form>
+    </main>
   )
 }
