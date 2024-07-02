@@ -1,3 +1,18 @@
+<<<<<<< HEAD:app/_page.tsx
+import { AtSymbolIcon } from "@heroicons/react/24/solid"
+
+import { Input, Label } from "./_input"
+import { Button } from "@/_components/ui/button"
+
+const UsernameInput = () => {
+  return (
+    <Input name="email" placeholder="you@evonofy.com">
+      <Label>E-mail</Label>
+
+      <AtSymbolIcon className="size-4" />
+    </Input>
+  )
+=======
 "use client"
 import { cities, states } from "@/brazilian-states-cities"
 import { Checkbox } from "@/lib/Checkbox"
@@ -8,6 +23,7 @@ import { use, useActionState, useEffect, useState } from "react"
 
 async function getStates<T>() {
   return (await fetch("https://brasilapi.com.br/api/ibge/uf/v1")).json() as T
+>>>>>>> master:app/page.tsx
 }
 
 async function getCities<T>(id: string) {
