@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  Open-source pet super app.
+  Open-source pet super app. Adoption.
 <p/>
 
 <p align="center">
