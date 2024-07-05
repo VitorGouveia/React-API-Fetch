@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 
-import { useModal } from "@/lib/Modal"
-import { Input } from "@/lib/Input"
+import { useModal } from "@/ui/Modal"
+import { Input } from "@/ui/Input"
 
 type Step = "start" | "details" | "end"
 

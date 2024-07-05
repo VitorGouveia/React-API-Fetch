@@ -17,3 +17,8 @@
     </tbody>
   </table>
 </p>
+
+Built using:
+
+- https://headlessui.com
+- https://ui.shadcn.com
