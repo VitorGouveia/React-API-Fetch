@@ -1,45 +1,19 @@
-import { Button } from "@/ui/button"
+import { supabase } from "@/supabase"
 
-import { makeSearch } from "./actions"
+import { Search } from "@/ui/adoption/search"
 
-async function getData() {
-  console.log("running")
-
-  return new Date().toString()
-}
+import { petsRepository } from "@/lib/pets/repository"
 
 export default async function Page() {
-  const data = await getData()
+  const client = supabase()
+
+  const pets = await petsRepository(client).list()
 
   return (
     <main className="flex flex-col gap-2">
       <section>
-        <SearchFilters />
-
-        <Divider />
-
-        <div className="flex-1 flex-col">
-          <AutomaticSearch />
-        </div>
-
-        {data}
+        <Search pets={pets} />
       </section>
     </main>
   )
-}
-
-function Divider() {
-  return <div></div>
-}
-
-async function SearchFilters() {
-  return (
-    <div>
-      <Button formAction={makeSearch}>Make search</Button>
-    </div>
-  )
-}
-
-function AutomaticSearch() {
-  return <div></div>
 }

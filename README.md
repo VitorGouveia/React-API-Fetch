@@ -1,9 +1,9 @@
 <h1 align="center">
-  SeuPet
+  🐕 SeuPet
 </h1>
 
 <p align="center">
-  Open-source pet super app. Adoption.
+  Open-source pet super app.
 <p/>
 
 <p align="center">
@@ -22,3 +22,21 @@ Built using:
 
 - https://headlessui.com
 - https://ui.shadcn.com
+
+---
+
+[Roadmap](./lib/README.md)
+
+### Structure
+
+- public
+  images
+- app
+  pages, actions
+- ui
+  server-side ui components
+- lib
+  functional requirements
+  regras de negócio
+
+all code is domain-driven
