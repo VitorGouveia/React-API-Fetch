@@ -2,11 +2,52 @@ import { TypeID, typeid } from "typeid-js"
 
 export type Species = "dog" | "cat" | "fish" | "bird" | "other"
 export type Size = "small" | "medium" | "big"
-type Gender = "male" | "female"
+export type Gender = "male" | "female"
 export type Coat = "smooth" | "curled" | "short" | "long"
 export type Energy = "low" | "high"
-type Independence = "low" | "high"
-type Ambient = "small" | "big"
+export type Independence = "low" | "high"
+export type Ambient = "small" | "big"
+
+export const speciesNames: Record<Species, string> = {
+  dog: "Cachorro",
+  cat: "Gato",
+  fish: "Peixe",
+  bird: "Pássaro",
+  other: "Outros",
+}
+
+export const sizesNames: Record<Size, string> = {
+  small: "Pequenininho",
+  medium: "Médio",
+  big: "Grande",
+}
+
+export const genderNames: Record<Gender, string> = {
+  male: "Masculino",
+  female: "Feminino",
+}
+
+export const coatNames: Record<Coat, string> = {
+  short: "Curto",
+  smooth: "Liso",
+  curled: "Enrolado",
+  long: "Longo",
+}
+
+export const energyNames: Record<Energy, string> = {
+  low: "Baixo",
+  high: "Alto",
+}
+
+export const independenceNames: Record<Independence, string> = {
+  low: "Baixo",
+  high: "Alto",
+}
+
+export const ambientNames: Record<Ambient, string> = {
+  small: "Pequeno",
+  big: "Grande",
+}
 
 export type SupabasePet = {
   id: string
@@ -26,9 +67,7 @@ export type SupabasePet = {
   ambient: Ambient
 }
 
-export type PetProps = {
-  id?: TypeID<"pet">
-
+export type SearchablePetProps = {
   // Properties
   age: number
   species: Species
@@ -40,14 +79,16 @@ export type PetProps = {
   energy: Energy
   independence: Independence
   ambient: Ambient
+}
 
-  // DonationRegistration
-  // status: "pending" | "donated"
+export type PetProps = {
+  id?: TypeID<"pet">
+  
   name: string
   cep: string
 
   created_at?: Date
-}
+} & SearchablePetProps
 
 export class Pet {
   readonly id

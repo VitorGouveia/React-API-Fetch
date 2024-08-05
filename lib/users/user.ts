@@ -1,14 +1,14 @@
-import { typeid, TypeID } from "typeid-js"
+import { typeid } from "typeid-js"
 
 import { Email } from "@/lib/value-objects/email"
 
 type UserProps = {
-  id?: TypeID<"user">
+  id?: string
 
   name: string
   email: string
 
-  role: "donator" | "basic"
+  role: "donator" | "basic" | "save-search"
 }
 
 export class User {
@@ -20,7 +20,7 @@ export class User {
   public readonly role
 
   constructor(props: UserProps) {
-    this.id = props.id ?? typeid("user")
+    this.id = props.id ?? typeid("user").toString()
     this.name = props.name
     this.email = Email.create(props.email)
     this.role = props.role

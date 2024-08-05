@@ -7,7 +7,7 @@ import { Email } from "@/lib/value-objects/email"
 import { Phone } from "@/lib/value-objects/phone"
 
 import { adoptPet } from "@/lib/adoption/adoption-intentions/adopt-pet.use-case"
-import { createToken } from "@/lib/auth/create-token.use-case"
+import { createToken } from "@/lib/auth/jwt"
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 
@@ -23,23 +23,23 @@ function mapError(errors: Record<string, string[]>) {
 
 export type AdoptPetState =
   | {
-      status: "success"
-      errors: {
-        name?: string
-        email?: string
-        phone?: string
-        description?: string
-      }
+    status: "success"
+    errors: {
+      name?: string
+      email?: string
+      phone?: string
+      description?: string
     }
+  }
   | {
-      status: "error"
-      errors: {
-        name?: string
-        email?: string
-        phone?: string
-        description?: string
-      }
+    status: "error"
+    errors: {
+      name?: string
+      email?: string
+      phone?: string
+      description?: string
     }
+  }
 
 export async function adoptPetAction(
   { petId }: { petId: string },
@@ -119,7 +119,7 @@ export async function adoptPetAction(
       id: TypeID.fromString(petId, "pet"),
     },
     user: {
-      id: user.id,
+      id: TypeID.fromString(user.id, "user"),
     },
   })
 

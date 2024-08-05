@@ -1,6 +1,6 @@
 import { AlertCircleIcon, PackageIcon, ScanIcon, ZapIcon } from "lucide-react"
 
-import { Coat, Energy, Pet, Size, Species } from "@/lib/pets/pet"
+import { Coat, Energy, Pet, Size, speciesNames } from "@/lib/pets/pet"
 
 import { Alert, AlertTitle } from "@/ui/alert"
 import { Button } from "@/ui/button"
@@ -127,15 +127,6 @@ async function Properties(pet: Pet) {
   async function adoptionIntention() {
     "use server"
     redirect(`/pets/${pet.id}?modal=adoption-intention&open=true`)
-  }
-
-  const speciesNames: Record<Species, string> = {
-    dog: "Cachorro",
-
-    cat: "Gato",
-    fish: "Peixe",
-    bird: "Pássaro",
-    other: "Outros",
   }
 
   const sizesNames: Record<Size, string> = {

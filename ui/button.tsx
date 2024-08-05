@@ -20,9 +20,9 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         // ghost: "hover:bg-accent hover:text-accent-foreground",
-        ghost: "hover:bg-[hsla(0,100%,0%,0.08)] hover:text-accent-foreground",
-        "ghost-inverted":
-          "hover:bg-[hsla(0,100%,100%,0.15)] hover:text-accent-foreground",
+        ghost:
+          "bg-[hsla(0,100%,100%,25%)] text-white hover:bg-[hsla(0,100%,100%,45%)]",
+        "ghost-inverted": "hover:bg-[hsla(0,100%,0%,0.08)]",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

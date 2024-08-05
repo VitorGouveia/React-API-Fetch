@@ -59,3 +59,16 @@
 .select-trigger span {
   @apply !inline-block !w-[86px] overflow-hidden text-ellipsis whitespace-nowrap text-left;
 }
+
+.button-card:has(.button-card-input:checked) {
+  @apply border border-primary;
+  background: linear-gradient(
+    rgb(252, 239, 239) 0%,
+    rgb(255, 249, 249) 0.01%,
+    rgb(252, 240, 240) 100%
+  ) !important;
+}
+
+.button-card:has(.button-card-input:focus-visible) {
+  @apply ring-2 ring-offset-1;
+}

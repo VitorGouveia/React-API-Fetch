@@ -1,9 +1,13 @@
 import type { Metadata } from "next"
 import { Nunito as Reading } from "next/font/google"
+import { cookies } from "next/headers"
 
 import "@/global.css"
 import { cn } from "@/ui/utils"
-import { cookies } from "next/headers"
+
+import { readToken } from "@/lib/auth/jwt"
+import { usersRepository } from "@/lib/users/repository"
+import { supabase } from "@/supabase"
 
 const inter = Reading({
   subsets: ["latin"],
@@ -24,6 +28,12 @@ export default async function RootLayout({
 }>) {
   const access_token = cookies().get("@seu-pet:access-token")
 
+  const user = access_token
+    ? await usersRepository(supabase()).retrieve(
+        readToken(access_token.value).user.id,
+      )
+    : null
+
   return (
     <html lang="pt-br">
       <body
@@ -32,11 +42,11 @@ export default async function RootLayout({
           inter.variable,
         )}
       >
-        {/* {access_token && (
-          <header className="sticky top-0 h-[100px] w-full bg-muted p-4 text-muted-foreground">
-            hello worlddldd
+        {user && (
+          <header className="h-[100px] w-full bg-muted p-4 text-muted-foreground">
+            {user.name} - {user.email}
           </header>
-        )} */}
+        )}
 
         {children}
         {modal}

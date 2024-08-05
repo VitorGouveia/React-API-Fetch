@@ -1,10 +1,3 @@
-<aside>
-<img src="/icons/chess-king_red.svg" alt="/icons/chess-king_red.svg" width="40px" /> Doar o Pet para o dono ideal.
-
-</aside>
-
----
-
 # 💡 Brainstorming
 
 > Como facilitar a doação desse Pet?

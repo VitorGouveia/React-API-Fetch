@@ -4,7 +4,7 @@
 
 <p align="center">
   Open-source pet super app.
-<p/>
+</p>
 
 <p align="center">
   <table>
@@ -24,6 +24,13 @@ Built using:
 - https://ui.shadcn.com
 
 ---
+
+ProductHunt
+pawpal
+petsitter kit
+pet khojo
+the pet sitter
+
 
 [Roadmap](./lib/README.md)
 

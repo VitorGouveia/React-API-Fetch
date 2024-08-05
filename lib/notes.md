@@ -37,3 +37,29 @@ Market cap: R$ 38bi
 Buyer
 Seller
 -> Deve poder
+
+# Doação
+
+Bõtão de doar no header
+Vai criar conta com user tipo doador
+Dashboard com botão de registrar Pet
+Vai preencher um formulário para criar o Pet
+O sistema vai buscar SearchIntentions, dar feedback e alertar os userIds das SearchIntentions
+Notificar as pessoas via banco na plataforma (propriedade 'read')
+Dashboard de AdoptionIntentions, mostrar lista de adoption intentions para os pets do usuário
+Pode aceitar ou rejeitar AdoptionIntention
+Após aceitar vai aparecer todas as informações do User e vai poder chamar no WhatsApp
+Vai ter um botão para marcar o Pet como doado
+
+# Hotelaria
+
+Cadastro de empresa
+
+Pet <-> DonationRegistration <-> AdoptionIntention
+
+AdoptionRegistration
+
+- id string
+- status pending | donated
+- petId string
+- adoptionIntentionId string?

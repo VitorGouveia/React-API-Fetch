@@ -1,19 +1,22 @@
 import { supabase } from "@/supabase"
 
-import { Search } from "@/ui/adoption/search"
+import { Search, TypedSearchParams } from "./components"
 
 import { petsRepository } from "@/lib/pets/repository"
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: TypedSearchParams
+}) {
   const client = supabase()
 
   const pets = await petsRepository(client).list()
+  // add search here
 
   return (
     <main className="flex flex-col gap-2">
-      <section>
-        <Search pets={pets} />
-      </section>
+      <Search pets={pets} searchParams={searchParams} />
     </main>
   )
 }
